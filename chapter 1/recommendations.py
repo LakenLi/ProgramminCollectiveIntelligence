@@ -125,7 +125,7 @@ def calculateSimilarItems(prefs, n = 10):
     c = 0
     for item in itemPrefs:
         c += 1
-        if c % 100 == 0: print "%d / %d" % (c, len(itemPrefs))
+        if c % 100 == 0: print ("%d / %d" % (c, len(itemPrefs)))
 
         #寻找最为相近的物品
         scores = topMatches(itemPrefs, item, n = n, similarity=sim_distance)
@@ -161,4 +161,15 @@ def getRecommendedItems(prefs, itemMatch, user):
 
     rankings.sort()
     rankings.reverse()
-    return rankings              
+    return rankings
+
+
+def sim_tannimoto(prefs, p1, p2):
+    si = {}
+    for item in prefs[p1]:
+        if item in prefs[p2]:
+            si[item] = 1
+
+    return len(si) / (len(prefs[p1]) + len(prefs[p2]) - len(si))
+
+
